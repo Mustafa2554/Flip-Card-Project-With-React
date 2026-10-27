@@ -1,0 +1,246 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  color: #f8fafc;
+  background:
+    radial-gradient(ellipse at 50% 0%, #1b1740 0%, transparent 50%),
+    #080b14;
+}
+
+/* Page */
+
+.page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 70px 24px 80px;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.eyebrow {
+  color: #a78bfa;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  margin-bottom: 14px;
+}
+
+.page-header h1 {
+  font-size: clamp(38px, 6vw, 60px);
+  font-weight: 800;
+  letter-spacing: -2.5px;
+}
+
+.page-header h1 span {
+  color: #a78bfa;
+}
+
+.subtitle {
+  color: #94a3b8;
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* Grid */
+
+.container {
+  width: 100%;
+  max-width: 1150px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+/* Perspective wrapper: does not rotate */
+
+.card-scene {
+  height: 250px;
+  min-width: 0;
+  perspective: 1000px;
+  outline: none;
+}
+
+/* The only element that rotates */
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+
+  transition: transform 0.65s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Flip on hover or keyboard focus */
+
+.card-scene:hover .card-inner,
+.card-scene:focus-visible .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Both faces */
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 28px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 16px;
+
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  border-radius: 20px;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(124, 58, 237, 0.16),
+      transparent 60%
+    ),
+    linear-gradient(145deg, #171b2c, #0e1220);
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  overflow-wrap: anywhere;
+}
+
+/* Front */
+
+.card-front {
+  transform: rotateY(0deg);
+}
+
+/* Back */
+
+.card-back {
+  transform: rotateY(180deg);
+
+  background:
+    radial-gradient(
+      circle at bottom left,
+      rgba(56, 189, 248, 0.12),
+      transparent 60%
+    ),
+    linear-gradient(145deg, #21183b, #10182a);
+
+  border-color: rgba(139, 92, 246, 0.5);
+}
+
+/* Card content */
+
+.card-label {
+  color: #a78bfa;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+}
+
+.card-face h3 {
+  color: #f1f5f9;
+  font-size: clamp(16px, 1.5vw, 20px);
+  font-weight: 600;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.card-back h3 {
+  color: #ddd6fe;
+}
+
+.card-hint {
+  color: #64748b;
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  margin-top: 4px;
+}
+
+/* Smooth, subtle hover effect */
+
+.card-scene:hover .card-front,
+.card-scene:focus-visible .card-front {
+  border-color: rgba(167, 139, 250, 0.5);
+}
+
+.card-scene:focus-visible {
+  outline: 2px solid #a78bfa;
+  outline-offset: 5px;
+  border-radius: 20px;
+}
+
+/* Tablet */
+
+@media (max-width: 850px) {
+  .container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .card-scene {
+    height: 230px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 550px) {
+  .page {
+    padding: 48px 18px;
+  }
+
+  .page-header {
+    margin-bottom: 32px;
+  }
+
+  .container {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .card-scene {
+    height: 210px;
+  }
+
+  .card-face {
+    padding: 24px;
+  }
+
+  .card-face h3 {
+    font-size: 18px;
+  }
+}
+
+/* Respect reduced-motion preferences */
+
+@media (prefers-reduced-motion: reduce) {
+  .card-inner {
+    transition: none;
+  }
+}
